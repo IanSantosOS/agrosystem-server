@@ -39,24 +39,6 @@ router.put('/update/community/:id', async ({ body, params }, res) => {
     res.json({ data: true });
 });
 
-// router.put('/update/product/:id', async ({ body, params }, res) => {
-//     const { id } = params;
-//     const product = await Product.findOne({ where: { id } });
-
-//     if (body?.name && body.name.trim() !== "") {
-//         product.name = body.name;
-//     }
-//     if (body?.price && body?.price >= 0 && typeof body?.price === 'number') {
-//         product.price = body.price;
-//     }
-//     if (body?.qnt && body?.qnt >= 0 && typeof body?.qnt === 'number') {
-//         product.qnt = body.qnt;
-//     }
-
-//     await product.save();
-//     res.json({ data: true });
-// });
-
 router.delete('/delete/community/:id', async (req, res) => {
     const { id } = req.params;
     await Community.destroy({ where: { id } });
