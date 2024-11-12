@@ -2,13 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const bcrypt = require('bcrypt');
 
-// Definição do modelo de usuário
 const User = sequelize.define('user', {
-    id: {
-        type: DataTypes.BIGINT,
-        autoIncrement: true,
-        primaryKey: true,
-    },
     name: {
         type: DataTypes.STRING,
         allowNull: false,

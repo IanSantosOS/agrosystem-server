@@ -6,6 +6,8 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const User = require('./models/User');
+const Product = require('./models/Product');
+const Community = require('./models/Community');
 
 require('dotenv').config();
 
@@ -22,16 +24,27 @@ app.use(session({
 
 // ------------------------------ ROUTES ------------------------------
 
-app.use('/api/v1/', require('./routes/router'));
+app.use('/api/v1/', require('./routes/router_v1'));
 
 // ------------------------------ SERVER ------------------------------
 
 sequelize.sync({ force: true }).then(() => {
     console.log('\n\x1b[44;1m Banco de dados sincronizado! \x1b[0m');
+
     User.create({ name: 'Flávio',         username: 'flavio', email: 'flavio@gmail.com', password: '123456' });
     User.create({ name: 'Ian dos Santos', username: 'ian',    email: 'iansos@gmail.com', password: 'ian'    });
     User.create({ name: 'Gabriel',        username: 'grc3',   email: 'grc3@gmail.com',   password: '123'    });
     User.create({ name: 'Usuário',        username: 'user',   email: 'user@gmail.com',   password: 'user'   });
+
+    Product.create({ name: "Cenoura",              price: 3,       qnt: 200  });
+    Product.create({ name: "Pá",                   price: 35.99,   qnt: 550  });
+    Product.create({ name: "Trator",               price: 2000.50, qnt: 3    });
+    Product.create({ name: "Sistema de Irrigação", price: 3580.99, qnt: 3400 });
+
+    Community.create({ title: "Comunidade Agrícola", description: "texto." });
+    Community.create({ title: "Os Planta Feijão",    description: "texto." });
+    Community.create({ title: "Os Colhe Milho",      description: "texto." });
+    Community.create({ title: "Comunidade do Arroz", description: "texto." });
 
     const PORT = process.env.PORT || 3300;
     app.listen(PORT, () => {
