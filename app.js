@@ -41,10 +41,10 @@ sequelize.sync({ force: true }).then(() => {
     Product.create({ name: "Trator",               price: 2000.50, qnt: 3    });
     Product.create({ name: "Sistema de Irrigação", price: 3580.99, qnt: 3400 });
 
-    Community.create({ title: "Comunidade Agrícola", description: "texto." });
-    Community.create({ title: "Os Planta Feijão",    description: "texto." });
-    Community.create({ title: "Os Colhe Milho",      description: "texto." });
-    Community.create({ title: "Comunidade do Arroz", description: "texto." });
+    Community.create({ title: "Comunidade Agrícola", description: "A melhor comunidade do Brasil." });
+    Community.create({ title: "Os Planta Feijão",    description: "Só para quem gosta de comer feijão" });
+    Community.create({ title: "Os Colhe Milho",      description: "Milho é bom demais." });
+    Community.create({ title: "Comunidade do Arroz", description: "Um arrozinho para completar o almoço do dia." });
 
     const PORT = process.env.PORT || 3300;
     app.listen(PORT, () => {
