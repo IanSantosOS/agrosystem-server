@@ -1,20 +1,23 @@
 const router = require('express').Router();
 const Product = require('../../models/Product');
 
-router.get('/products', async (req, res) => {
-    const products = (await Product.findAll()).map(products => {
-        return {
-            id: products.id,
-            name: products.name,
-            price: products.price,
-            qnt: products.qnt,
-        }
-    });
+// Get All Products
+router.get('/', async (req, res) => {
+    const products = await Product.findAll();
 
     res.json(products);
 });
 
-router.post('/create/product', async ({ body: product }, res) => {
+// Get One Product
+router.get('/:id', async ({ params }, res) => {
+    const { id } = params;
+    const product = await Product.findOne({ where: { id } });
+
+    res.json(product);
+});
+
+// Create New Product
+router.post('/', async ({ body: product }, res) => {
     const prop1 = !product?.name || !product?.price || !product?.qnt;
     const prop2 = product?.name?.trim() === "" || product?.price < 0 || product?.qnt < 0;
     if (prop1 || prop2) {
@@ -25,7 +28,8 @@ router.post('/create/product', async ({ body: product }, res) => {
     }
 });
 
-router.put('/update/product/:id', async ({ body, params }, res) => {
+// Update Product
+router.patch('/:id', async ({ body, params }, res) => {
     const { id } = params;
     const product = await Product.findOne({ where: { id } });
 
@@ -43,10 +47,12 @@ router.put('/update/product/:id', async ({ body, params }, res) => {
     res.json({ data: true });
 });
 
-router.delete('/delete/product/:id', async (req, res) => {
+// Delete Product
+router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     await Product.destroy({ where: { id } });
     res.json({});
 });
 
+// Export Route
 module.exports = router;

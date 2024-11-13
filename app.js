@@ -24,7 +24,7 @@ app.use(session({
 
 // ------------------------------ ROUTES ------------------------------
 
-app.use('/api/v1/', require('./routes/router_v1'));
+app.use('/v1/', require('./routes/router_v1'));
 
 // ------------------------------ SERVER ------------------------------
 

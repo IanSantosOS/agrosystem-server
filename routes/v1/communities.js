@@ -1,19 +1,23 @@
 const router = require('express').Router();
 const Community = require('../../models/Community');
 
-router.get('/communities', async (req, res) => {
-    const communities = (await Community.findAll()).map(community => {
-        return {
-            id: community.id,
-            title: community.title,
-            description: community.description,
-        }
-    });
+// Get All Communities
+router.get('/', async (req, res) => {
+    const communities = await Community.findAll();
 
     res.json(communities);
 });
 
-router.post('/create/community', async ({ body: community }, res) => {
+// Get One Community
+router.get('/:id', async ({ params }, res) => {
+    const { id } = params;
+    const community = await Community.findOne({ where: { id } });
+
+    res.json(community);
+});
+
+// Create new Community
+router.post('/', async ({ body: community }, res) => {
     const prop1 = !community?.title || !community?.description;
     const prop2 = community?.title?.trim() === "" || community?.description?.trim() === "";
     if (prop1 || prop2) {
@@ -24,7 +28,8 @@ router.post('/create/community', async ({ body: community }, res) => {
     }
 });
 
-router.put('/update/community/:id', async ({ body, params }, res) => {
+// Update Community
+router.patch('/:id', async ({ body, params }, res) => {
     const { id } = params;
     const community = await Community.findOne({ where: { id } });
 
@@ -39,10 +44,12 @@ router.put('/update/community/:id', async ({ body, params }, res) => {
     res.json({ data: true });
 });
 
-router.delete('/delete/community/:id', async (req, res) => {
+// Delete Community
+router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     await Community.destroy({ where: { id } });
     res.json({});
 });
 
+// Export Route
 module.exports = router;
