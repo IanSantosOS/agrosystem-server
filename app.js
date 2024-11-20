@@ -8,6 +8,9 @@ const app = express();
 const User = require('./models/User');
 const Product = require('./models/Product');
 const Community = require('./models/Community');
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./swagger-output.json');
+
 
 require('dotenv').config();
 
@@ -22,11 +25,13 @@ app.use(session({
     cookie: { secure: false }
 }));
 
-// ------------------------------ ROUTES ------------------------------
+// ------------------------------ ROUTES -------------------------------
 
-app.use('/v1/', require('./routes/router_v1'));
+app.use('/api/v1/', require('./routes/router_v1'));
+app.use('/docs/', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
-// ------------------------------ SERVER ------------------------------
+
+// ------------------------------ SERVER -------------------------------
 
 sequelize.sync({ force: true }).then(() => {
     console.log('\n\x1b[44;1m Banco de dados sincronizado! \x1b[0m');

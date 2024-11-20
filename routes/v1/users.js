@@ -1,44 +1,6 @@
+const authenticateToken = require('../../middlewares/authToken');
 const router = require('express').Router();
 const User = require('../../models/User');
-const bcrypt = require('bcrypt');
-
-// Login
-router.post('/login', async ({ body }, res) => {
-    const user = await User.findOne({ where: { username: body.username } });
-    let userVerified = false;
-    if (user) {
-        userVerified = await bcrypt.compare(body.password, user.password);
-    }
-
-    res.json({ data: userVerified });
-});
-
-// Logout
-// router.post('/logout', (req, res) => {});
-
-// Get All Users
-router.get('/', async (req, res) => {
-    const users = await User.findAll({
-        attributes: {
-            exclude: ['password', 'createdAt', 'updatedAt']
-        }
-    });
-
-    res.json(users);
-});
-
-// Get One User
-router.get('/:id', async ({ params }, res) => {
-    const { id } = params;
-    const user = await User.findOne({
-        where: { id },
-        attributes: {
-            exclude: ['password', 'createdAt', 'updatedAt']
-        }
-    });
-
-    res.json(user);
-});
 
 // Create New User
 router.post('/', async ({ body: user }, res) => {
@@ -52,8 +14,32 @@ router.post('/', async ({ body: user }, res) => {
     }
 });
 
+// Get All Users
+router.get('/', authenticateToken, async (req, res) => {
+    const users = await User.findAll({
+        attributes: {
+            exclude: ['password', 'createdAt', 'updatedAt']
+        }
+    });
+
+    res.json(users);
+});
+
+// Get One User
+router.get('/:id', authenticateToken, async ({ params }, res) => {
+    const { id } = params;
+    const user = await User.findOne({
+        where: { id },
+        attributes: {
+            exclude: ['password', 'createdAt', 'updatedAt']
+        }
+    });
+
+    res.json(user);
+});
+
 // Update User
-router.patch('/:id', async ({ body, params }, res) => {
+router.patch('/:id', authenticateToken, async ({ body, params }, res) => {
     const { id } = params;
     const user = await User.findOne({ where: { id } });
 
@@ -72,7 +58,7 @@ router.patch('/:id', async ({ body, params }, res) => {
 });
 
 // Delete User
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authenticateToken, async (req, res) => {
     const { id } = req.params;
     await User.destroy({ where: { id } });
     res.json({});
