@@ -6,8 +6,9 @@
   "license": "MIT",
   "main": "app.js",
   "scripts": {
-    "start": "node .",
-    "dev": "node --watch ."
+    "start": "node swagger && node .",
+    "dev": "node --watch .",
+    "docs": "node swagger"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
