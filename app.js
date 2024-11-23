@@ -1,7 +1,6 @@
 // --------------------------- CONFIGURATION --------------------------
 
 const sequelize = require('./config/database');
-const session = require('express-session');
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -17,13 +16,6 @@ require('dotenv').config();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.use(session({
-    secret: 'agrosystem-secret',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false }
-}));
 
 // ------------------------------ ROUTES -------------------------------
 
@@ -51,7 +43,7 @@ sequelize.sync({ force: true }).then(() => {
     Community.create({ title: "Os Colhe Milho",      description: "Milho é bom demais." });
     Community.create({ title: "Comunidade do Arroz", description: "Um arrozinho para completar o almoço do dia." });
 
-    const PORT = process.env.PORT || 3300;
+    const PORT = process.env.SERVER_PORT || 3300;
     app.listen(PORT, () => {
         console.log(`\x1b[43;1m Funcionou!!! \x1b[0m Servidor está rodando na porta: ${PORT}\x1b[0m\n`);
     });

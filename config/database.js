@@ -1,6 +1,5 @@
-require('dotenv').config();
-
 const { Sequelize } = require('sequelize');
+require('dotenv').config();
 
 const sequelize = new Sequelize(
     process.env.DB_NAME,
@@ -8,7 +7,9 @@ const sequelize = new Sequelize(
     process.env.DB_PASS,
     {
         host: process.env.DB_HOST,
-        dialect: 'mariadb'
+        port: process.env.DB_PORT,
+        dialect: 'postgres',
+        logging: false
     }
 );
 

@@ -6,7 +6,7 @@ const doc = {
     title: 'API Agrosystem',
     description: 'Documentação gerada automaticamente pelo Swagger',
   },
-  host: process.env.HOST + ':' + process.env.PORT,
+  host: process.env.SERVER_HOST + ':' + process.env.SERVER_PORT,
   schemes: ['http'],
 };
 
