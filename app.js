@@ -48,3 +48,5 @@ sequelize.sync({ force: true }).then(() => {
         console.log(`\x1b[43;1m Funcionou!!! \x1b[0m Servidor está rodando na porta: ${PORT}\x1b[0m\n`);
     });
 });
+
+module.exports = app;
