@@ -1,5 +1,7 @@
 // --------------------------- CONFIGURATION --------------------------
 
+require('dotenv').config();
+
 const sequelize = require('./config/database');
 const express = require('express');
 const cors = require('cors');
@@ -9,9 +11,6 @@ const Product = require('./models/Product');
 const Community = require('./models/Community');
 const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./swagger-output.json');
-
-
-require('dotenv').config();
 
 app.use(cors());
 app.use(express.json());
