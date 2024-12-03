@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Community = require('../../models/Community');
+const { Community } = require('../../models');
 
 // Get All Communities
 router.get('/', async (req, res) => {

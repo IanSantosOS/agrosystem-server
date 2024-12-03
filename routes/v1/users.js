@@ -1,6 +1,6 @@
 const authenticateToken = require('../../middlewares/authToken');
 const router = require('express').Router();
-const User = require('../../models/User');
+const { User } = require('../../models');
 
 // Create New User
 router.post('/', async ({ body: user }, res) => {
