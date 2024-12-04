@@ -7,12 +7,18 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const { User, Product, Community } = require('./models');
-const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./swagger-output.json');
+const swaggerUi = require('swagger-ui-express');
+
+const http = require('http');
+const { initWebSocket } = require('./config/ws');
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+const server = http.createServer(app);
+initWebSocket(server);
 
 // ------------------------------ ROUTES -------------------------------
 
@@ -40,7 +46,7 @@ sequelize.sync({ force: true }).then(async () => {
     await Community.create({ title: "Comunidade do Arroz", description: "Um arrozinho para completar o almoço do dia.", userId: 2 });
 
     const PORT = process.env.SERVER_PORT || 3300;
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
         console.log(`\x1b[43;1m Funcionou!!! \x1b[0m Servidor está rodando na porta: \x1b[33;1m${PORT}\x1b[0m\n`);
     });
 });

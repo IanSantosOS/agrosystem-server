@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Community } = require('../../models');
+const { Community, Message } = require('../../models');
 
 // Get All Communities
 router.get('/', async (req, res) => {
@@ -49,6 +49,23 @@ router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     await Community.destroy({ where: { id } });
     res.json({});
+});
+
+// ---------------------- Messages ----------------------
+
+router.get('/:id/msg', async ({ params }, res) => {
+    const { id } = params;
+    try {
+        const messages = await Message.findAll({
+            where: { communityId: id },
+            order: [['createdAt', 'ASC']], // Ordena em ordem crescente (do mais antigo para o mais recente)
+        });
+
+        res.status(200).json(messages);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erro ao buscar mensagens.' });
+    }
 });
 
 // Export Route
