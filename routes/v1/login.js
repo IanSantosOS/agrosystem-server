@@ -21,9 +21,4 @@ router.post('/login', async ({ body }, res) => {
     }
 });
 
-// Logout - Rota que será chamada no front-end para exlusão do token e redirecionamento para a página login
-// router.post('/logout', (req, res) => {
-//     res.status(200).json({ message: "Logout successful. Please redirect to login." });
-// });
-
 module.exports = router;
