@@ -30,10 +30,10 @@ app.use('/docs/', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 sequelize.sync({ force: true }).then(async () => {
     console.log('\n\x1b[44;1m Banco de dados sincronizado! \x1b[0m');
 
-    await User.create({ name: 'Usuário',        username: 'user',   email: 'user@gmail.com',   password: 'user'   });
-    await User.create({ name: 'Flávio',         username: 'flavio', email: 'flavio@gmail.com', password: '123456' });
-    await User.create({ name: 'Gabriel',        username: 'grc3',   email: 'grc3@gmail.com',   password: '123'    });
-    await User.create({ name: 'Ian', username: 'ian',    email: 'iansos@gmail.com', password: 'ian'    });
+    await User.create({ name: 'Usuário', username: 'user',   email: 'user@gmail.com',   password: 'user'   });
+    await User.create({ name: 'Flávio',  username: 'flavio', email: 'flavio@gmail.com', password: '123456' });
+    await User.create({ name: 'Gabriel', username: 'grc3',   email: 'grc3@gmail.com',   password: '123'    });
+    await User.create({ name: 'Ian',     username: 'ian',    email: 'iansos@gmail.com', password: 'ian'    });
 
     await Product.create({ name: "Cenoura",              price: 3,       qnt: 200,  userId: 2 });
     await Product.create({ name: "Pá",                   price: 35.99,   qnt: 550,  userId: 2 });

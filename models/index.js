@@ -1,5 +1,3 @@
-const sequelize = require('../config/database');
-
 const User = require('./User');
 const Product = require('./Product');
 const Community = require('./Community');
